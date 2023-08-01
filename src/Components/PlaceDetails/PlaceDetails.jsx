@@ -6,8 +6,10 @@ import Rating from '@material-ui/lab/Rating';
 
 import useStyles from './styles';
 
-const PlaceDetails = ({ place }) => {
+const PlaceDetails = ({ place, selected, refProp }) => {
     const classes = useStyles();
+
+    if(selected) refProp?.current?.scrollIntoView({behavior: "smooth", block: "start"});
 
     return (
         // elevation={6} is gonna give it a nice shadow effect
@@ -20,6 +22,10 @@ const PlaceDetails = ({ place }) => {
             <CardContent>
                 {/* gutterBottom-> means we are gonna give it some extra margin at the bottom */}
                 <Typography gutterBottom variant='h5'>{place.name}</Typography>
+                <Box display="flex" justifyContent="space-between" my={2}>
+                    <Rating name="read-only" value={Number(place.rating)} readOnly />
+                    <Typography gutterBottom variant='subtitle1'>out of {place.num_reviews} reviews</Typography>
+                </Box>
                 <Box display="flex" justifyContent="space-between">
                     <Typography variant='subtitle1'>Price</Typography>
                     <Typography gutterBottom variant='subtitle1'>{place.price_level}</Typography>
